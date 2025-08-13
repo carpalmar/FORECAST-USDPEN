@@ -1,0 +1,35 @@
+# Data configuration
+data:
+  path: "monthly_data.csv"
+  date_col: "DATES"
+  value_col: "PEN"
+  freq: "M"
+
+# Forecasting configuration
+forecasting:
+  horizon: 12
+  train_split: 0.8
+  context_window: 24 # Example for foundation models
+
+# Backtesting configuration
+backtesting:
+  stride: 1
+  retrain: false
+
+# Model Selection
+model:
+  name: "lstm" # or "chronos", "timesfm", "moirai"
+  hyperparameters:
+    # LSTM example
+    sequence_length: 9
+    lstm_units_1: 125
+    # Chronos example
+    # num_samples: 20
+    # temperature: 1.0
+
+# Output configuration
+output:
+  artifacts_path: "artifacts"
+  metrics_file: "metrics.json"
+  forecasts_file: "forecasts.csv"
+  plot_file: "forecast_vs_actual.png"
