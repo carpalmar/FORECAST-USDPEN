@@ -3,6 +3,14 @@ import pandas as pd
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
+def smape(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    denominator = (np.abs(y_true) + np.abs(y_pred)) / 2
+    # Evitar división por cero
+    denominator = np.where(denominator == 0, 1, denominator)
+    return np.mean(np.abs(y_pred - y_true) / denominator) * 100
+
+
 def get_error_metrics(y_true: pd.Series, y_pred: pd.Series) -> dict:
     """
     Calculates standard regression error metrics.
@@ -12,7 +20,7 @@ def get_error_metrics(y_true: pd.Series, y_pred: pd.Series) -> dict:
         y_pred (pd.Series): Predicted values.
 
     Returns:
-        dict: A dictionary with MSE, RMSE, MAE, and R2 score.
+        dict: A dictionary with MSE, RMSE, MAE, R2, and SMAPE score.
     """
     y_true_vals = y_true.values.flatten()
     y_pred_vals = y_pred.values.flatten()
@@ -22,6 +30,7 @@ def get_error_metrics(y_true: pd.Series, y_pred: pd.Series) -> dict:
         "RMSE": np.sqrt(mean_squared_error(y_true_vals, y_pred_vals)),
         "MAE": mean_absolute_error(y_true_vals, y_pred_vals),
         "R2": r2_score(y_true_vals, y_pred_vals),
+        "SMAPE": smape(y_true_vals, y_pred_vals),
     }
 
 
