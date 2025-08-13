@@ -1,0 +1,44 @@
+[project]
+name = "forecast_usdpen"
+version = "0.1.0"
+description = "A refactored package for forecasting the USD/PEN exchange rate."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "your@email.com" }
+]
+dependencies = [
+    "pandas>=1.0",
+    "numpy>=1.20",
+    "matplotlib>=3.0",
+    "seaborn>=0.11",
+    "scikit-learn>=1.0",
+    "optuna>=3.0",
+    "tqdm>=4.60",
+    "pyyaml>=6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff",
+    "pre-commit"
+]
+full = [
+    "torch",
+    "tensorflow>=2.0",
+    "chronos-forecasting",
+    "darts"
+]
+
+[project.scripts]
+forecast-usdpen = "forecast_usdpen.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["forecast_usdpen"]
+package-dir = {"" = "src"}
